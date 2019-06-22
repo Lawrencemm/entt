@@ -11,6 +11,7 @@ class EnttConan(ConanFile):
     homepage = url
     author = "Michele Caini <michele.caini@gmail.com>"
     license = "MIT"
+    settings = "os", "compiler", "build_type", "arch"
     exports = ["LICENSE"]
     exports_sources = ["src/*"]
     no_copy_source = True
