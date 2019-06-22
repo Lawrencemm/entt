@@ -1514,7 +1514,8 @@ public:
      * @return A temporary object to use to load snasphosts.
      */
     basic_snapshot_loader<Entity> loader() ENTT_NOEXCEPT {
-        using force_fn_type = void(basic_registry &, const entity_type, const bool);
+        using loader_type = basic_snapshot_loader<Entity>;
+        using force_fn_type = typename loader_type::force_fn_type;
 
         force_fn_type *force = [](basic_registry &reg, const entity_type entity, const bool destroyed) {
             using promotion_type = std::conditional_t<sizeof(size_type) >= sizeof(entity_type), size_type, entity_type>;

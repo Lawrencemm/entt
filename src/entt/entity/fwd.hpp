@@ -41,8 +41,7 @@ template<typename>
 class basic_snapshot;
 
 /*! @class basic_snapshot_loader */
-template<typename>
-class basic_snapshot_loader;
+template <typename, typename> class basic_snapshot_loader;
 
 /*! @class basic_continuous_loader */
 template<typename>
@@ -67,7 +66,7 @@ using prototype = basic_prototype<entity>;
 using snapshot = basic_snapshot<entity>;
 
 /*! @brief Alias declaration for the most common use case. */
-using snapshot_loader = basic_snapshot_loader<entity>;
+using snapshot_loader = basic_snapshot_loader<entity, loader_policy_resetting>;
 
 /*! @brief Alias declaration for the most common use case. */
 using continuous_loader = basic_continuous_loader<entity>;

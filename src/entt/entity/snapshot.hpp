@@ -182,6 +182,21 @@ private:
     follow_fn_type *follow;
 };
 
+template <typename Entity> class loader_policy_overwriting
+{
+  protected:
+    loader_policy_overwriting(basic_registry<Entity> *registry)
+    {
+        // to restore a snapshot as a whole requires a clean registry
+        ENTT_ASSERT(registry->empty());
+    }
+};
+
+template <typename Entity> class loader_policy_resetting
+{
+  protected:
+    loader_policy_resetting(basic_registry<Entity> *registry) {}
+};
 
 /**
  * @brief Utility class to restore a snapshot as a whole.
@@ -193,16 +208,17 @@ private:
  *
  * @tparam Entity A valid entity type (see entt_traits for more details).
  */
-template<typename Entity>
-class basic_snapshot_loader {
+template <typename Entity, typename policy = loader_policy_resetting<Entity>>
+class basic_snapshot_loader : protected policy
+{
     /*! @brief A registry is allowed to create snapshot loaders. */
     friend class basic_registry<Entity>;
 
     using force_fn_type = void(basic_registry<Entity> &, const Entity, const bool);
 
-    basic_snapshot_loader(basic_registry<Entity> *source, force_fn_type *fn) ENTT_NOEXCEPT
-        : reg{source},
-          force{fn}
+    basic_snapshot_loader(basic_registry<Entity> *source, force_fn_type *fn) ENTT_NOEXCEPT : policy{source},
+                      reg{source},
+                      force{fn}
     {
     }
 
