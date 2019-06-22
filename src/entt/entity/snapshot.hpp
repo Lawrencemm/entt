@@ -204,8 +204,6 @@ class basic_snapshot_loader {
         : reg{source},
           force{fn}
     {
-        // to restore a snapshot as a whole requires a clean registry
-        ENTT_ASSERT(reg->empty());
     }
 
     template<typename Archive>
@@ -232,12 +230,13 @@ class basic_snapshot_loader {
             if constexpr(std::is_empty_v<Type>) {
                 archive(entt);
                 force(*reg, entt, destroyed);
-                reg->template assign<Type>(args..., entt);
+                reg->template assign_or_replace<Type>(args..., entt);
             } else {
                 Type instance{};
                 archive(entt, instance);
                 force(*reg, entt, destroyed);
-                reg->template assign<Type>(args..., entt, std::as_const(instance));
+                reg->template assign_or_replace<Type>(
+                  args..., entt, std::as_const(instance));
             }
         }
     }

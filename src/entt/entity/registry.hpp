@@ -1537,10 +1537,6 @@ public:
             }
         };
 
-        reset();
-        entities.clear();
-        available = {};
-
         return { this, force };
     }
 
