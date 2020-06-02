@@ -44,16 +44,13 @@ function(SETUP_TARGET TARGET_NAME)
         ${TARGET_NAME}
         PRIVATE
             $<$<NOT:$<PLATFORM_ID:Windows>>:-pedantic -fvisibility=hidden -Wall -Wshadow -Wno-deprecated-declarations>
-            $<$<PLATFORM_ID:Windows>:/EHsc /W1 /wd4996 /w14800>
     )
 
     target_compile_options(
         ${TARGET_NAME}
         PRIVATE
             $<$<AND:$<CONFIG:Debug>,$<NOT:$<PLATFORM_ID:Windows>>>:-O0 -g>
-            $<$<AND:$<CONFIG:Release>,$<NOT:$<PLATFORM_ID:Windows>>>:-O2>
             $<$<AND:$<CONFIG:Debug>,$<PLATFORM_ID:Windows>>:/Od>
-            $<$<AND:$<CONFIG:Release>,$<PLATFORM_ID:Windows>>:/O2>
     )
 endfunction()
 
@@ -168,6 +165,7 @@ SETUP_BASIC_TEST(snapshot entt/entity/snapshot.cpp)
 SETUP_BASIC_TEST(sparse_set entt/entity/sparse_set.cpp)
 SETUP_BASIC_TEST(storage entt/entity/storage.cpp)
 SETUP_BASIC_TEST(view entt/entity/view.cpp)
+SETUP_BASIC_TEST(range entt/entity/range.cpp)
 
 # Test locator
 

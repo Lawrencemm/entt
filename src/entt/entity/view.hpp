@@ -15,6 +15,7 @@
 #include "utility.hpp"
 #include "entity.hpp"
 #include "fwd.hpp"
+#include "range.hpp"
 
 
 namespace entt {
@@ -456,6 +457,14 @@ public:
         ((std::get<pool_type<Component> *>(pools) == &view ? each<Component>(std::move(func)) : void()), ...);
     }
 
+    auto each() {
+      return components_range<Entity, exclude_t<Exclude...>, Component...>{pools};
+    }
+
+    auto ceach() const {
+      return components_range{*this};
+    }
+
     /**
      * @brief Iterates entities and components and applies the given function
      * object to them.
@@ -738,6 +747,10 @@ public:
                 }
             }
         }
+    }
+
+    auto each() {
+      return components_range<Entity, exclude_t<>, Component>{{pool}};
     }
 
 private:
