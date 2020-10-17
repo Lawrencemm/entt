@@ -175,6 +175,7 @@ SETUP_BASIC_TEST(sparse_set entt/entity/sparse_set.cpp)
 SETUP_BASIC_TEST(storage entt/entity/storage.cpp)
 SETUP_BASIC_TEST(view entt/entity/view.cpp)
 SETUP_BASIC_TEST(view_pack entt/entity/view_pack.cpp)
+SETUP_BASIC_TEST(filter entt/entity/filter.cpp)
 
 # Test locator
 
